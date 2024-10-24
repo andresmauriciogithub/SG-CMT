@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Etiquetas meta para definir el tipo de documento y las configuraciones de idioma y codificación de caracteres -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 para admitir caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Habilita el diseño responsivo para pantallas pequeñas como las de dispositivos móviles -->
+    
+    <title>Sistema de Gestión Compras y Mantenimiento</title> <!-- Título del sitio web que aparecerá en la pestaña del navegador -->
+
+    <!-- Enlace al framework Bootstrap para aplicar estilos predefinidos y hacer el sitio responsivo -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Enlace a un archivo de estilos CSS externo para personalizar los estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Contenedor para la imagen del logo del sistema -->
+    <div class="header-logo">
+        <img src="logo.png" width="200"> <!-- Muestra una imagen del logo con un ancho de 200 píxeles -->
+    </div>
+
+    <!-- Cabecera del sitio con un fondo de color primario (azul), texto blanco y centrado -->
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Sistema de Gestión Compras y Mantenimiento</h1> <!-- Título principal del sitio -->
+    </header>
+
+    <!-- Barra de navegación del sitio web con menú de enlaces -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <!-- Botón para la versión móvil que permite colapsar o expandir el menú de navegación -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> <!-- Ícono del botón colapsable -->
+        </button>
+
+        <!-- Contenedor del menú de navegación que se colapsa o expande según el tamaño de la pantalla -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"> <!-- Lista de elementos del menú alineados a la derecha -->
+                <li class="nav-item">
+                    <a class="nav-link" href="2registro.html">Registro</a> <!-- Enlace a la página de registro -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="3login.html">Login</a> <!-- Enlace a la página de inicio de sesión (login) -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="12soporte_ayuda.html">Soporte y Ayuda</a> <!-- Enlace a la página de soporte y ayuda -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal del contenido de la página -->
+    <main class="container mt-4">
+        <!-- Sección sobre nosotros con una breve descripción -->
+        <section>
+            <h2>Sobre Nosotros</h2>
+            <p>Descripción del sistema y sus funcionalidades principales.</p>
+        </section>
+
+        <!-- Sección que lista las funcionalidades principales del sistema -->
+        <section>
+            <h2>Funcionalidades</h2>
+            <ul>
+                <li>Gestión de solicitudes</li> <!-- Funcionalidad para gestionar solicitudes -->
+                <li>Gestión de cotizaciones</li> <!-- Funcionalidad para gestionar cotizaciones -->
+                <li>Evaluación de proveedores</li> <!-- Funcionalidad para evaluar proveedores -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- Espaciado adicional antes del pie de página -->
+    <br>
+    <br>
+    <br>
+
+    <!-- Pie de página del sitio web con un fondo oscuro, texto blanco y centrado -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Sistema de Gestión Compras y Mantenimiento. Todos los derechos reservados.</p> <!-- Mensaje de derechos reservados -->
+    </footer>
+
+    <!-- Scripts necesarios para que las funcionalidades de Bootstrap, como el menú colapsable, funcionen correctamente -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- Biblioteca jQuery para manipulación del DOM -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> <!-- Biblioteca Popper.js para posicionar elementos en la página -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- JavaScript de Bootstrap para funcionalidades como el menú colapsable -->
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes y Análisis de Compras y Mantenimiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .reporte {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .search-section {
+            margin-bottom: 20px;
+        }
+        .search-section select, .search-section input {
+            padding: 10px;
+            width: calc(25% - 22px);
+            margin-bottom: 10px;
+        }
+        .search-section button {
+            padding: 10px 20px;
+            background-color: #06acf9;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .table-section {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #06acf9;
+            color: white;
+        }
+        .export-buttons {
+            margin-top: 20px;
+        }
+        .export-buttons button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+    </style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: #fa813a;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .nav-menu a:hover {
+        background-color: #0056b3;
+    }
+    .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+</style>
+
+</head>
+<body>
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="2registro.html" class="nav-button">Registro</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <div class="header">
+        <h1>Reportes y Análisis de Compras y Mantenimiento</h1>
+    </div>
+
+    <div class="container">
+        <!-- Sección de filtros -->
+        <div class="search-section">
+            <h2>Filtrar Información</h2>
+            <select id="filter-client">
+                <option value="">Seleccionar Cliente/Empresa</option>
+                <option value="Empresa 1">Empresa 1</option>
+                <option value="Empresa 2">Empresa 2</option>
+                <!-- Más opciones -->
+            </select>
+            <select id="filter-product">
+                <option value="">Seleccionar Producto/Servicio</option>
+                <option value="Estudios de Seguridad">Estudios de Seguridad</option>
+                <option value="Exámenes Médicos">Exámenes Médicos</option>
+                <!-- Más opciones -->
+            </select>
+            <select id="filter-maintenance">
+                <option value="">Seleccionar Mantenimiento</option>
+                <option value="Computadoras">Computadoras</option>
+                <option value="Mantenimiento Locativo">Mantenimiento Locativo</option>
+                <!-- Más opciones -->
+            </select>
+            <input type="month" id="filter-date">
+            <button onclick="filtrarInformacion()">Filtrar</button>
+        </div>
+
+        <!-- Sección de tablas -->
+        <div class="table-section">
+            <h2>Solicitudes por Cliente/Empresa por Mes</h2>
+            <table id="report-table">
+                <thead>
+                    <tr>
+                        <th>Cliente/Empresa</th>
+                        <th>Producto/Servicio</th>
+                        <th>Mantenimiento</th>
+                        <th>Número de Solicitudes</th>
+                        <th>Mes</th>
+                        <th>Tiempo de Respuesta</th>
+                        <th>Tiempo de Entrega</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Empresa 1</td>
+                        <td>Estudios de Seguridad</td>
+                        <td></td>
+                        <td>10</td>
+                        <td>2024-01</td>
+                        <td>24 horas</td>
+                        <td>48 horas</td>
+                    </tr>
+                    <tr>
+                        <td>Empresa 2</td>
+                        <td>Visitas Domiciliarias</td>
+                        <td></td>
+                        <td>8</td>
+                        <td>2024-02</td>
+                        <td>48 horas</td>
+                        <td>72 horas</td>
+                    </tr>
+                    <tr>
+                        <td>Empresa 3</td>
+                        <td></td>
+                        <td>Reparación CPU</td>
+                        <td>1</td>
+                        <td>2024-01</td>
+                        <td>24 horas</td>
+                        <td>48 horas</td>
+                    </tr>
+                    <!-- Más registros -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botones de exportación -->
+        <div class="export-buttons">
+            <button onclick="exportToExcel()">Exportar a Excel</button>
+            <button onclick="exportToPDF()">Exportar a PDF</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    
+    <script>
+        // Función para filtrar información
+        function filtrarInformacion() {
+            const client = document.getElementById('filter-client').value;
+            const product = document.getElementById('filter-product').value;
+            const maintenance = document.getElementById('filter-maintenance').value;
+            const date = document.getElementById('filter-date').value;
+
+            const rows = document.querySelectorAll('#report-table tbody tr');
+
+            rows.forEach(row => {
+                const clientText = row.cells[0].textContent;
+                const productText = row.cells[1].textContent || row.cells[2].textContent;
+                const maintenanceText = row.cells[2].textContent;
+                const dateText = row.cells[4].textContent;
+
+                const matchClient = client === "" || clientText.includes(client);
+                const matchProduct = product === "" || productText.includes(product);
+                const matchMaintenance = maintenance === "" || maintenanceText.includes(maintenance);
+                const matchDate = date === "" || dateText.includes(date);
+
+                if (matchClient && matchProduct && matchMaintenance && matchDate) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        // Función para exportar la tabla a Excel
+        function exportToExcel() {
+            const table = document.getElementById('report-table');
+            const wb = XLSX.utils.table_to_book(table, {sheet: "Reportes"});
+            XLSX.writeFile(wb, 'reportes_compras_mantenimiento.xlsx');
+        }
+
+        // Función para exportar la tabla a PDF
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.text("Reportes de Compras y Mantenimiento", 10, 10);
+            doc.autoTable({ html: '#report-table' });
+            doc.save('reportes_compras_mantenimiento.pdf');
+        }
+    </script>
+</body>
+</html>

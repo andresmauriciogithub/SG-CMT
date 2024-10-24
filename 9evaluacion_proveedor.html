@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Proveedores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .proveedor {
+            background-color: #e0dbdb;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .evaluation-form, .evaluation-details {
+            margin-bottom: 20px;
+        }
+        .result {
+            font-weight: bold;
+        }
+        .consolidated-report {
+            margin-top: 30px;
+        }
+        .edit-btn, .view-btn {
+            margin-right: 5px;
+        }
+    </style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: #fa813a;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .nav-menu a:hover {
+        background-color: #0056b3;
+    }
+    .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+</style>
+
+</head>
+
+<body>
+
+    <<div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="2registro.html" class="nav-button">Registro</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <div class="header">
+        <h1>Evaluación de Proveedores</h1>
+    </div>
+
+    <div class="container">
+        <!-- Lista de proveedores -->
+        <div id="supplier-list">
+            <div class="proveedor">
+                <h3>Proveedor 1</h3>
+                <p>Descripción del proveedor 1</p>
+                <button class="btn btn-primary evaluate-btn" data-supplier="1">Evaluar</button>
+                <button class="btn btn-info view-btn" data-supplier="1">Ver Evaluación</button>
+            </div>
+            <div class="proveedor">
+                <h3>Proveedor 2</h3>
+                <p>Descripción del proveedor 2</p>
+                <button class="btn btn-primary evaluate-btn" data-supplier="2">Evaluar</button>
+                <button class="btn btn-info view-btn" data-supplier="2">Ver Evaluación</button>
+            </div>
+        </div>
+
+        <!-- Formulario de evaluación -->
+        <div id="evaluation-form-container" style="display: none;">
+            <h2 id="form-title">Evaluar Proveedor</h2>
+            <form id="evaluation-form">
+                <input type="hidden" id="supplier-id">
+                <input type="hidden" id="evaluation-index">
+                <div class="form-group">
+                    <label for="evaluation-date">Fecha de Evaluación</label>
+                    <input type="date" class="form-control" id="evaluation-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria1">Brinda asesoría técnica</label>
+                    <input type="number" class="form-control" id="criteria1" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria2">Comunica oportunamente variación en precios</label>
+                    <input type="number" class="form-control" id="criteria2" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria3">Brinda atención oportuna a Quejas, reclamos y devoluciones</label>
+                    <input type="number" class="form-control" id="criteria3" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria4">Calidad de facturación</label>
+                    <input type="number" class="form-control" id="criteria4" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria5">Atiende pedidos o servicios solicitados de urgencia / manejo de prioridades</label>
+                    <input type="number" class="form-control" id="criteria5" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria6">El tiempo promedio para entrega del servicio/producto es satisfactorio</label>
+                    <input type="number" class="form-control" id="criteria6" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria7">Ajusta la atención a las necesidades del cliente</label>
+                    <input type="number" class="form-control" id="criteria7" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="criteria8">Precios competitivos con otros proveedores</label>
+                    <input type="number" class="form-control" id="criteria8" min="1" max="5" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Evaluación</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">Cancelar</button>
+            </form>
+            <div class="result" id="evaluation-result"></div>
+        </div>
+
+        <!-- Detalles de la evaluación -->
+        <div id="evaluation-details-container" style="display: none;">
+            <h2>Detalles de Evaluación</h2>
+            <div id="evaluation-details"></div>
+            <button class="btn btn-secondary" id="back-btn">Volver</button>
+        </div>
+
+        <!-- Informe Consolidado -->
+        <div class="consolidated-report">
+            <h2>Consolidado de Evaluaciones</h2>
+            <div class="form-group">
+                <label for="filter-date">Filtrar por Fecha</label>
+                <input type="month" class="form-control" id="filter-date">
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Fecha de Evaluación</th>
+                        <th>Puntaje Promedio</th>
+                        <th>Porcentaje</th>
+                        <th>Clasificación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="consolidated-results">
+                    <!-- Las evaluaciones consolidadas se insertarán aquí -->
+                </tbody>
+            </table>
+            <div class="summary">
+                <p>Total Proveedores Tipo A: <span id="type-a-count">0</span></p>
+                <p>Total Proveedores Tipo B: <span id="type-b-count">0</span></p>
+                <p>Total Proveedores Tipo C: <span id="type-c-count">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const evaluations = []; // Matriz para almacenar evaluaciones
+
+        function calculateEvaluation() {
+            const form = document.getElementById('evaluation-form');
+            const resultDiv = document.getElementById('evaluation-result');
+            const supplierId = document.getElementById('supplier-id').value;
+            const evaluationDate = document.getElementById('evaluation-date').value;
+            const scores = [];
+            let sum = 0;
+
+            for (let i = 1; i <= 8; i++) {
+                const score = parseInt(document.getElementById(`criteria${i}`).value, 10);
+                scores.push(score);
+                sum += score;
+            }
+
+            const average = sum / scores.length;
+            const percentage = ((average / 5) * 100).toFixed(2);
+            let classification = 'C'; // Clasificación por defecto
+
+            if (percentage >= 80) {
+                classification = 'A';
+            } else if (percentage >= 60) {
+                classification = 'B';
+            }
+
+            // Determinar si estamos agregando una nueva evaluación o actualizando una existente
+            const evaluationIndex = document.getElementById('evaluation-index').value;
+            if (evaluationIndex) {
+                evaluations[evaluationIndex] = { supplierId, evaluationDate, average, percentage, classification, scores };
+            } else {
+                evaluations.push({ supplierId, evaluationDate, average, percentage, classification, scores });
+            }
+
+            // Mostrar resultado
+            resultDiv.innerHTML = `
+                <p>Puntaje Promedio: ${average.toFixed(2)}</p>
+                <p>Porcentaje: ${percentage}%</p>
+                <p>Clasificación: ${classification}</p>
+            `;
+
+           // Añadir al informe consolidado
+            updateConsolidatedReport();
+
+            // Ocultar el formulario
+            document.getElementById('evaluation-form-container').style.display = 'none';
+            document.getElementById('supplier-list').style.display = 'block';
+        }
+
+        function updateConsolidatedReport() {
+            const consolidatedResults = document.getElementById('consolidated-results');
+            const typeACount = document.getElementById('type-a-count');
+            const typeBCount = document.getElementById('type-b-count');
+            const typeCCount = document.getElementById('type-c-count');
+            const filterDate = document.getElementById('filter-date').value;
+            consolidatedResults.innerHTML = '';
+
+            let aCount = 0;
+            let bCount = 0;
+            let cCount = 0;
+
+            evaluations.forEach((eval, index) => {
+                if (!filterDate || eval.evaluationDate.startsWith(filterDate)) {
+                    consolidatedResults.innerHTML += `
+                        <tr>
+                            <td>Proveedor ${eval.supplierId}</td>
+                            <td>${eval.evaluationDate}</td>
+                            <td>${eval.average.toFixed(2)}</td>
+                            <td>${eval.percentage}%</td>
+                            <td>${eval.classification}</td>
+                            <td>
+                                <button class="btn btn-warning edit-btn" data-index="${index}">Editar</button>
+                                <button class="btn btn-info view-btn" data-index="${index}">Ver</button>
+                            </td>
+                        </tr>
+                    `;
+
+                    if (eval.classification === 'A') aCount++;
+                    if (eval.classification === 'B') bCount++;
+                    if (eval.classification === 'C') cCount++;
+                }
+            });
+
+            typeACount.textContent = aCount;
+            typeBCount.textContent = bCount;
+            typeCCount.textContent = cCount;
+        }
+
+        // Escuchadores de eventos para evaluación y visualización de detalles
+        document.querySelectorAll('.evaluate-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('supplier-id').value = button.getAttribute('data-supplier');
+                document.getElementById('evaluation-index').value = '';
+                document.getElementById('form-title').textContent = 'Evaluar Proveedor';
+                document.getElementById('evaluation-form-container').style.display = 'block';
+                document.getElementById('supplier-list').style.display = 'none';
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('view-btn')) {
+                const index = event.target.getAttribute('data-index');
+                const evaluation = evaluations[index];
+
+                const detailsDiv = document.getElementById('evaluation-details');
+                detailsDiv.innerHTML = `
+                    <p><strong>Proveedor:</strong> Proveedor ${evaluation.supplierId}</p>
+                    <p><strong>Fecha de Evaluación:</strong> ${evaluation.evaluationDate}</p>
+                    <p><strong>Puntaje Promedio:</strong> ${evaluation.average.toFixed(2)}</p>
+                    <p><strong>Porcentaje:</strong> ${evaluation.percentage}%</p>
+                    <p><strong>Clasificación:</strong> ${evaluation.classification}</p>
+                    <p><strong>Concepto:</strong> ${getConcept(evaluation.classification)}</p>
+                    <h4>Detalles por Criterio:</h4>
+                    <ul>
+                        <li>Brinda asesoría técnica: ${evaluation.scores[0]}</li>
+                        <li>Comunica oportunamente variación en precios: ${evaluation.scores[1]}</li>
+                        <li>Brinda atención oportuna a quejas: ${evaluation.scores[2]}</li>
+                        <li>Calidad de facturación: ${evaluation.scores[3]}</li>
+                        <li>Atiende pedidos urgentes: ${evaluation.scores[4]}</li>
+                        <li>Tiempo de entrega: ${evaluation.scores[5]}</li>
+                        <li>Ajusta atención a necesidades: ${evaluation.scores[6]}</li>
+                        <li>Precios competitivos: ${evaluation.scores[7]}</li>
+                    </ul>
+                `;
+                
+                document.getElementById('evaluation-details-container').style.display = 'block';
+                document.getElementById('supplier-list').style.display = 'none';
+                document.getElementById('evaluation-form-container').style.display = 'none';
+            }
+        });
+
+        function getConcept(classification) {
+            switch (classification) {
+                case 'A':
+                    return 'Proveedor confiable ha cumplido con los criterios establecidos para su evaluación, continua con la empresa.';
+                case 'B':
+                    return 'Proveedor con el que se deben establecer planes de acción para controlar aspectos deficientes.';
+                case 'C':
+                    return 'Proveedor no cumple los criterios, se debe definir si se establecen planes de acción o buscar un nuevo proveedor.';
+            }
+        }
+
+        document.getElementById('evaluation-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            calculateEvaluation();
+        });
+
+        document.getElementById('cancel-btn').addEventListener('click', () => {
+            document.getElementById('evaluation-form-container').style.display = 'none';
+            document.getElementById('supplier-list').style.display = 'block';
+        });
+
+        document.getElementById('back-btn').addEventListener('click', () => {
+            document.getElementById('evaluation-details-container').style.display = 'none';
+            document.getElementById('supplier-list').style.display = 'block';
+        });
+
+        document.getElementById('filter-date').addEventListener('change', () => {
+            updateConsolidatedReport();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <!-- Enlace a Bootstrap CSS para diseño responsivo y estilos predeterminados -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa; /* Fondo gris claro */
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #ffffff; /* Fondo blanco para el formulario */
+            padding: 20px;
+            border-radius: 8px; /* Bordes redondeados */
+        }
+
+        h2 {
+            color: #343a40; /* Color de texto oscuro */
+        }
+
+        /* Estilo personalizado para el botón de registro */
+        button.btn-block {
+            background-color: #007bff; /* Color azul */
+            border-color: #007bff;
+        }
+
+        button.btn-block:hover {
+            background-color: #0056b3; /* Color más oscuro en hover */
+            border-color: #004085;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo en la parte superior -->
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="3login.html" class="nav-button">Login</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <!-- Contenedor principal del formulario -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Registro de Usuario</h2>
+
+        <!-- Notificación de éxito, oculta inicialmente -->
+        <div id="mensajeExito" class="alert alert-success" role="alert" style="display: none;">
+            ¡Usuario creado con éxito!
+        </div>
+
+        <!-- Formulario de registro -->
+        <form id="registroForm" class="border p-4 shadow-sm">
+            <!-- Selección del tipo de usuario -->
+            <div class="form-group">
+                <label for="tipo_usuario">Selecciona el tipo de usuario:</label>
+                <!-- Menú desplegable para seleccionar el tipo de usuario -->
+                <select class="form-control" id="tipo_usuario" name="tipo_usuario" onchange="mostrarFormulario()">
+                    <option value="">Seleccionar</option>
+                    <option value="ClienteInterno">Cliente Interno</option>
+                    <option value="ClienteExterno">Cliente Externo</option>
+                    <option value="CoordinadorCMT">Coordinador CMT</option>
+                    <option value="GerenteGeneral">Gerente General</option>
+                    <option value="ProveedorNatural">Proveedor (Persona Natural)</option>
+                    <option value="ProveedorJuridico">Proveedor (Persona Jurídica)</option>
+                </select>
+            </div>
+
+            <!-- Contenedor para el formulario dinámico que cambia según el tipo de usuario seleccionado -->
+            <div id="formularioDinamico">
+                <!-- El contenido dinámico del formulario se mostrará aquí -->
+            </div>
+
+            <!-- Botón de registro -->
+            <button type="submit" class="btn btn-primary btn-block mt-4">Registrar Usuario</button>
+        </form>
+    </div>
+
+    <!-- Botón de Login, inicialmente oculto, que aparece tras el registro exitoso -->
+    <div id="botonLogin" style="display: none;" class="text-center mt-3">
+        <a href="3login.html" class="btn btn-success">Ir a Login</a>
+    </div>
+
+    <!-- Bootstrap JS y dependencias para funcionalidades interactivas -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Función que se ejecuta al enviar el formulario
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+            const formData = new FormData(this); // Recoge los datos del formulario
+
+            // Enviar los datos del formulario al servidor mediante fetch
+            fetch('procesar_registro.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Si el registro fue exitoso, mostrar el mensaje de éxito y el botón de login
+                if (data.includes("Usuario registrado con éxito")) {
+                    document.getElementById('mensajeExito').style.display = 'block';
+                    document.getElementById('botonLogin').style.display = 'block';
+                } else {
+                    alert("Error al registrar usuario: " + data); // Mostrar error en caso de fallo
+                }
+            })
+            .catch(error => console.error('Error:', error)); // Mostrar error si falla la petición
+        });
+
+        // Función para mostrar diferentes formularios según el tipo de usuario seleccionado
+        function mostrarFormulario() {
+            const tipo_usuario = document.getElementById('tipo_usuario').value; // Captura el tipo de usuario
+            const formularioDinamico = document.getElementById('formularioDinamico');
+            formularioDinamico.innerHTML = ''; // Limpiar el contenido dinámico previo
+
+
+            // Mostrar campos personalizados para 'Cliente Interno'
+            if (tipo_usuario === 'ClienteInterno') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correoElectronico">Correo Electronico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Área:</label>
+                        <input type="text" class="form-control" id="area" name="area" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cargo">Cargo:</label>
+                        <input type="text" class="form-control" id="cargo" name="cargo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contrasena:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+             // Mostrar campos personalizados para 'Cliente Externo'   
+            } else if (tipo_usuario === 'ClienteExterno') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombreEmpresa">Nombre de la Empresa:</label>
+                        <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nit">NIT:</label>
+                        <input type="text" class="form-control" id="nit" name="nit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correoElectrónico">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="personaCargo">Nombre de la Persona a Cargo:</label>
+                        <input type="text" class="form-control" id="persona_a_cargo" name="persona_a_cargo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Área:</label>
+                        <input type="text" class="form-control" id="area" name="area" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                       <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+             // Mostrar campos personalizados para 'Coordinador CMT'   
+            } else if (tipo_usuario === 'CoordinadorCMT') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correoElectrónico">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cargo">Cargo:</label>
+                        <input type="text" class="form-control" id="cargo" name="cargo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+            // Mostrar campos personalizados para 'Gerente General'
+            } else if (tipo_usuario === 'GerenteGeneral') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correoElectrónico">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cargo">Cargo:</label>
+                        <input type="text" class="form-control" id="cargo" name="cargo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+            // Mostrar campos personalizados para 'Proveedor Persona Natrual'
+            } else if (tipo_usuario === 'ProveedorNatural') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="identificacion">Identificación:</label>
+                        <input type="text" class="form-control" id="identificacion" name="identificacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correoElectrónico">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productoServicio">Producto o Servicio:</label>
+                        <input type="text" class="form-control" id="producto_servicio" name="producto_servicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfonos:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eps">EPS:</label>
+                        <input type="text" class="form-control" id="eps" name="eps" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="arl">ARL:</label>
+                        <input type="text" class="form-control" id="arl" name="arl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreContacto">Nombre de Contacto:</label>
+                        <input type="text" class="form-control" id="nombre_contacto" name="nombre_contacto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+            // Mostrar campos personalizados para 'Proveedor Persona Juridica'
+            } else if (tipo_usuario === 'ProveedorJuridico') {
+                formularioDinamico.innerHTML = `
+                    <div class="form-group">
+                        <label for="nombre_empresa">Nombre de la Empresa:</label>
+                        <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nit">NIT:</label>
+                        <input type="text" class="form-control" id="nit" name="nit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correo_electronico">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="producto_servicio">Producto o Servicio:</label>
+                        <input type="text" class="form-control" id="producto_servicio" name="producto_servicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreContacto">Nombre de Contacto:</label>
+                        <input type="text" class="form-control" id="nombre_contacto" name="nombre_contacto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <!-- Importa la biblioteca jQuery desde Google para facilitar la manipulación del DOM -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        /* Estilos generales para el cuerpo y contenedor del formulario */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Color de fondo blanco */
+            display: flex; /* Usa flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura del viewport completo */
+            margin: 0; /* Elimina márgenes predeterminados */
+        }
+        
+        /* Estilo para el contenedor del inicio de sesión */
+        .login-container {
+            background-color: #06acf9; /* Color de fondo azul */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            padding: 20px; /* Espaciado interno */
+            width: 300px; /* Ancho fijo */
+            position: relative; /* Posicionamiento relativo para el logo */
+        }
+
+        /* Estilos para los campos de entrada */
+        .input-field {
+            margin-bottom: 20px; /* Espaciado inferior entre campos */
+        }
+        
+        .input-field label {
+            display: block; /* Etiquetas en bloque */
+            font-weight: bold; /* Negrita para las etiquetas */
+        }
+        
+        .input-field input, .input-field select {
+            width: 100%; /* Ancho completo */
+            padding: 10px; /* Espaciado interno */
+            border: 1px solid #ccc; /* Borde gris claro */
+            border-radius: 4px; /* Bordes redondeados */
+            box-sizing: border-box; /* Incluye padding y borde en el tamaño total */
+        }
+
+        /* Estilo para el botón de inicio de sesión */
+        .login-button {
+            background-color: #ff9800; /* Color de fondo naranja */
+            color: #ffffff; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            width: 100%; /* Ancho completo */
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+            margin-top: 10px; /* Espaciado superior */
+            text-align: center; /* Texto centrado */
+        }
+        
+        /* Estilo para el enlace de "olvidaste la contraseña" */
+        .forgot-password {
+            text-align: right; /* Alinear a la derecha */
+            font-size: 12px; /* Tamaño de fuente más pequeño */
+            color: hsl(0, 23%, 95%); /* Color gris claro */
+        }
+        
+        /* Estilo para el contenedor del logo */
+        .logo-container {
+            text-align: center; /* Centrar el logo */
+            color: #ffffff; /* Color de texto blanco */
+            font-size: 30px; /* Tamaño de fuente grande */
+            margin-bottom: 0px; /* Sin margen inferior */
+        }
+
+        /* Estilo para el mensaje emergente */
+        #notification {
+            display: none; /* Inicialmente oculto */
+            position: fixed; /* Posicionamiento fijo en la ventana */
+            top: 20px; /* A 20 píxeles desde la parte superior */
+            right: 20px; /* A 20 píxeles desde la derecha */
+            background-color: #4caf50; /* Color de fondo verde */
+            color: white; /* Color de texto blanco */
+            padding: 15px; /* Espaciado interno */
+            border-radius: 4px; /* Bordes redondeados */
+            z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+    </style>
+</head>
+<body>
+
+
+   <!-- Logo en la parte superior izquierda -->
+   <div class="header-logo" style="position: absolute; top: 0; left: 0;">
+       <img src="logo.png" width="200"> <!-- Logo de la aplicación -->
+   </div>
+
+   <!-- Contenedor para los botones de navegación -->
+   <div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="2registro.html" class="nav-button">Registro</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <!-- Contenedor del formulario de inicio de sesión -->
+    <div class="login-container">
+        <div class="logo-container">
+            <b>SG-CMT</b> <!-- Nombre de la aplicación -->
+        </div>
+        <br>
+        
+        <!-- Formulario para el inicio de sesión -->
+        <form id="loginForm">
+            <div class="input-field">
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo_electronico" required> <!-- Campo para correo electrónico -->
+            </div>
+
+            <div class="input-field">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="contrasena" required> <!-- Campo para contraseña -->
+            </div>
+
+            <div class="input-field">
+                <label for="tipo_usuario">Tipo de Usuario:</label>
+                <select id="tipo_usuario" name="tipo_usuario" required> <!-- Selección de tipo de usuario -->
+                    <option value="ClienteInterno">Cliente Interno</option>
+                    <option value="ClienteExterno">Cliente Externo</option>
+                    <option value="CoordinadorCMT">Coordinador CMT</option>
+                    <option value="GerenteGeneral">Gerente General</option>
+                    <option value="ProveedorNatural">Proveedor Natural</option>
+                    <option value="ProveedorJuridico">Proveedor Jurídico</option>
+                </select>
+            </div>
+
+            <button type="submit" class="login-button">Iniciar Sesión</button> <!-- Botón para enviar el formulario -->
+        </form>
+        <!-- Enlace para recuperar la contraseña -->
+        <p class="forgot-password"><a href="#"><b>¿Olvidaste la contraseña?</b></a></p>
+    </div>
+
+    <!-- Contenedor para mostrar notificaciones -->
+    <div id="notification">Login exitoso</div> <!-- Mensaje de éxito al iniciar sesión -->
+
+    <div id="resultado" style="display:none;"></div> <!-- Contenedor para resultados de la respuesta del servidor -->
+
+    <script>
+        $(document).ready(function () {
+          // Cuando el formulario se envía
+          $('#loginForm').on('submit', function (e) {
+              e.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+      
+              // Obtener los valores de los campos
+              const email = $('#correo').val();
+              const password = $('#password').val();
+              const tipoUsuario = $('#tipo_usuario').val();
+      
+              // Si las validaciones son correctas, proceder con el envío de datos
+              $.ajax({
+                  url: 'login.php', // URL del script PHP que procesa el inicio de sesión
+                  type: 'POST', // Método HTTP a usar
+                  data: $(this).serialize(), // Serializa los datos del formulario
+                  success: function (data) {
+                      // Muestra la respuesta del servidor en el contenedor de resultados
+                      $('#resultado').html(data);
+      
+                      // Mostrar mensajes de error basados en la respuesta del servidor
+                      if (data.includes("Correo inválido")) {
+                          alert("El correo electrónico es incorrecto.");
+                      } else if (data.includes("Contraseña incorrecta")) {
+                          alert("La contraseña ingresada es incorrecta.");
+                      } else if (data.includes("Usuario no válido")) {
+                          alert("El tipo de usuario seleccionado no es válido.");
+                      } else if (data.includes("Login exitoso")) {
+                          $('#notification').fadeIn().delay(1000).fadeOut(); // Aparece por 1 segundo y se oculta
+                          setTimeout(function () {
+                              const redireccion = data.split('REDIRIGIR:')[1].trim();
+                              window.location.href = redireccion; // Redirige a la nueva URL
+                          }, 1000);
+                      }
+                  },
+                  error: function () {
+                      $('#resultado').html("Error en la conexión con el servidor.");
+                  }
+              });
+          });
+        });
+      </script>
+</body>
+</html>

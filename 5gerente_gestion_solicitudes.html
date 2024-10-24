@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Solicitudes</title>
+    <style>
+        /* Estilos generales para el cuerpo y contenedor */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .solicitud {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .solicitud h3 {
+            margin: 0 0 10px 0;
+        }
+        .solicitud p {
+            margin: 5px 0;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .action-buttons button {
+            padding: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .aprobar-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .rechazar-button {
+            background-color: #f44336;
+            color: white;
+        }
+        .crear-solicitud {
+            margin-bottom: 30px;
+        }
+        .crear-solicitud input, .crear-solicitud select {
+            padding: 10px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+        .crear-solicitud button {
+            padding: 10px 20px;
+            background-color: #06acf9;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #fa813a;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo de la aplicación -->
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="8cotizacion_compras.html" class="nav-button">Cotizacion y Compras</a>
+    <a href="11reporte_analisis.html" class="nav-button">Reporte y Analisis</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <!-- Encabezado de la página -->
+    <div class="header">
+        <h1>Gestión de Solicitudes de Mantenimiento, Producto o Servicio</h1>
+    </div>
+<br>
+    <div class="container">
+
+        <!-- Crear nueva solicitud -->
+        <div class="crear-solicitud">
+            <h2>Crear Nueva Solicitud</h2>
+            <!-- Campos para ingresar la información de la nueva solicitud -->
+            <input id="solicitud-titulo" type="text" placeholder="Título de la Solicitud">
+            <input id="solicitud-descripcion" type="text" placeholder="Descripción">
+            <input id="solicitud-fecha-entrega" type="date" placeholder="Fecha Estimada de Entrega">
+            <select id="solicitud-proveedor">
+                <option value="">Seleccionar Proveedor</option>
+                <option value="Proveedor 1">Proveedor 1</option>
+                <option value="Proveedor 2">Proveedor 2</option>
+            </select>
+            <!-- Botón para crear la solicitud -->
+            <button onclick="crearSolicitud()">Crear Solicitud</button>
+        </div>
+
+        <!-- Lista de solicitudes existentes -->
+        <div id="lista-solicitudes">
+            <h2>Solicitudes Existentes</h2>
+
+            <!-- Ejemplo de solicitud (se generará dinámicamente más adelante) -->
+            <div class="solicitud">
+                <h3>Título de la Solicitud 1</h3>
+                <p>Descripción: Mantenimiento de Computadoras</p>
+                <p>Fecha de Solicitud: 2023-09-05</p>
+                <p>Fecha de Entrega: 2023-09-10</p>
+                <p>Proveedor: Proveedor 1</p>
+                <p id="estado-solicitud-1">Estado: Pendiente</p>
+                <div class="action-buttons">
+                    <!-- Botones para aprobar o rechazar la solicitud -->
+                    <button class="aprobar-button" onclick="cambiarEstado(1, 'Aprobada')">Aprobar</button>
+                    <button class="rechazar-button" onclick="cambiarEstado(1, 'Rechazada')">Rechazar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar el estado de la solicitud
+        function cambiarEstado(id, estado) {
+            // Cambia el texto del estado de la solicitud correspondiente al id
+            document.getElementById('estado-solicitud-' + id).innerText = 'Estado: ' + estado;
+        }
+
+        // Función para crear una nueva solicitud
+        function crearSolicitud() {
+            // Obtener valores de los campos de entrada
+            const titulo = document.getElementById('solicitud-titulo').value;
+            const descripcion = document.getElementById('solicitud-descripcion').value;
+            const fechaEntrega = document.getElementById('solicitud-fecha-entrega').value;
+            const proveedor = document.getElementById('solicitud-proveedor').value;
+
+            // Validar que todos los campos estén completos
+            if (!titulo || !descripcion || !fechaEntrega || !proveedor) {
+                alert('Por favor, completa todos los campos.'); // Alerta si falta información
+                return;
+            }
+
+            // Obtener la fecha actual de creación de la solicitud
+            const fechaSolicitud = new Date().toLocaleDateString();
+
+            // Crear un nuevo elemento HTML para la solicitud
+            const nuevaSolicitud = document.createElement('div');
+            nuevaSolicitud.classList.add('solicitud');
+            nuevaSolicitud.innerHTML = `
+                <h3>${titulo}</h3>
+                <p>Descripción: ${descripcion}</p>
+                <p>Fecha de Solicitud: ${fechaSolicitud}</p>
+                <p>Fecha de Entrega: ${fechaEntrega}</p>
+                <p>Proveedor: ${proveedor}</p>
+                <p id="estado-solicitud-${new Date().getTime()}">Estado: Pendiente</p>
+                <div class="action-buttons">
+                    <button class="aprobar-button" onclick="cambiarEstado(${new Date().getTime()}, 'Aprobada')">Aprobar</button>
+                    <button class="rechazar-button" onclick="cambiarEstado(${new Date().getTime()}, 'Rechazada')">Rechazar</button>
+                </div>
+            `;
+
+            // Agregar la nueva solicitud al contenedor de lista de solicitudes
+            document.getElementById('lista-solicitudes').appendChild(nuevaSolicitud);
+
+            // Limpiar los campos del formulario después de crear la solicitud
+            document.getElementById('solicitud-titulo').value = '';
+            document.getElementById('solicitud-descripcion').value = '';
+            document.getElementById('solicitud-fecha-entrega').value = '';
+            document.getElementById('solicitud-proveedor').value = '';
+        }
+    </script>
+
+    
+</body>
+</html>

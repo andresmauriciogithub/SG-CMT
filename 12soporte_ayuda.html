@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte y Ayuda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        .input-field input,
+        .input-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #050505;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #e0dbdb;
+        }
+        .submit-button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div> 
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="2registro.html" class="nav-button">Registro</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <div class="header">
+        <h1>Soporte y Ayuda</h1>
+    </div>
+    <div class="container">
+        <form id="soporteForm">
+            <div class="input-field">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="input-field">
+                <input type="email" id="email" placeholder="Correo electrónico" required>
+            </div>
+            <div class="input-field">
+                <textarea id="mensaje" placeholder="Mensaje" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button"><b>Enviar</b></button>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#soporteForm').on('submit', function(event) {
+                event.preventDefault();
+
+                // Obtener datos del formulario
+                var nombre = $('#nombre').val();
+                var email = $('#email').val();
+                var mensaje = $('#mensaje').val();
+
+                // Validar que todos los campos estén llenos
+                if (nombre === '' || email === '' || mensaje === '') {
+                    alert('Por favor, completa todos los campos');
+                    return;
+                }
+
+                // Enviar datos a PHP usando AJAX
+                $.ajax({
+                    url: 'guardar_mensaje.php',
+                    type: 'POST',
+                    data: {
+                        nombre: nombre,
+                        email: email,
+                        mensaje: mensaje
+                    },
+                    success: function(response) {
+                        alert(response);
+                        // Limpiar formulario después de enviar
+                        $('#soporteForm')[0].reset();
+                    },
+                    error: function() {
+                        alert('Hubo un error al enviar el mensaje. Inténtalo de nuevo.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proveedores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+
+        .tabs button {
+            background-color: #f28c28;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tabs button:hover {
+            background-color: #d47724;
+        }
+
+        .tabs button.active {
+            background-color: #06acf9;
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .file-upload {
+            margin-top: 10px;
+        }
+
+        .comment-box {
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            height: 80px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .nav-menu a:hover {
+        background-color: #0056b3;
+    }
+
+    .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+</style>
+
+</head>
+
+<body>
+
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+<!-- Contenedor para los botones de navegación -->
+<div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="2registro.html" class="nav-button">Registro</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <div class="header">
+        <h1>Gestión de Proveedores</h1>
+    </div>
+
+    <div class="container">
+
+        <!-- Pestañas de navegación -->
+        <div class="tabs">
+            <button class="tablink active" onclick="openTab(event, 'cotizaciones')">Gestión de Cotizaciones</button>
+            <button class="tablink" onclick="openTab(event, 'ordenes')">Órdenes de Compra</button>
+            <button class="tablink" onclick="openTab(event, 'evaluacion')">Evaluación de Rendimiento</button>
+        </div>
+
+        <!-- Gestión de Cotizaciones -->
+        <div id="cotizaciones" class="tab-content active">
+            <h2>Gestión de Cotizaciones</h2>
+
+            <!-- Cotización 1 -->
+            <div class="cotizacion">
+                <h3>Cotización 1</h3>
+                <p>Descripción de la cotización 1</p>
+                <button class="confirmar-recepcion-button">Confirmar Recepción</button>
+                <br><br>
+                <div class="file-upload">
+                    <label for="file1">Adjuntar archivo:</label>
+                    <input type="file" id="file1">
+                </div>
+                <br><br>
+                <button class="enviar-cotizacion-button">Enviar Cotización</button>
+                <br><br>
+            </div>
+
+            <!-- Cotización 2 -->
+            <div class="cotizacion">
+                <h3>Cotización 2</h3>
+                <p>Descripción de la cotización 2</p>
+                <button class="confirmar-recepcion-button">Confirmar Recepción</button>
+                <br><br>
+                <div class="file-upload">
+                    <label for="file2">Adjuntar archivo:</label>
+                    <input type="file" id="file2">
+                </div>
+                <br><br>
+                <button class="enviar-cotizacion-button">Enviar Cotización</button>
+            </div>
+        </div>
+
+        <!-- Gestión de Órdenes de Compra -->
+        <div id="ordenes" class="tab-content">
+            <h2>Gestión de Órdenes de Compra</h2>
+
+            <!-- Orden de Compra 1 -->
+            <div class="orden">
+                <h3>Orden de Compra 1</h3>
+                <p><strong>Número de Orden:</strong> OC-001</p>
+                <p><strong>Descripción:</strong> Mantenimiento del sistema de aire acondicionado</p>
+
+                <div class="envio-producto-upload">
+                    <label for="producto1">Adjuntar Producto/Servicio:</label>
+                    <input type="file" id="producto1">
+                    <textarea class="comment-box" id="comentario-producto1" placeholder="Añadir comentario"></textarea>
+                    <button class="enviar-producto-button">Enviar Producto/Servicio</button>
+                </div>
+
+                <div class="factura-upload">
+                    <label for="factura1">Adjuntar factura:</label>
+                    <input type="file" id="factura1">
+                    <button class="enviar-factura-button">Enviar Factura</button>
+                </div>
+            </div>
+
+            <!-- Orden de Compra 2 -->
+            <div class="orden">
+                <h3>Orden de Compra 2</h3>
+                <p><strong>Número de Orden:</strong> OC-002</p>
+                <p><strong>Descripción:</strong> Suministro de equipos de oficina (computadoras, impresoras)</p>
+
+                <div class="envio-producto-upload">
+                    <label for="producto2">Adjuntar Producto/Servicio:</label>
+                    <input type="file" id="producto2">
+                    <textarea class="comment-box" id="comentario-producto2" placeholder="Añadir comentario"></textarea>
+                    <button class="enviar-producto-button">Enviar Producto/Servicio</button>
+                </div>
+
+                <div class="factura-upload">
+                    <label for="factura2">Adjuntar factura:</label>
+                    <input type="file" id="factura2">
+                    <button class="enviar-factura-button">Enviar Factura</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluación de Rendimiento -->
+        <div id="evaluacion" class="tab-content">
+            <h2>Evaluación de Rendimiento</h2>
+
+            <!-- Evaluación 1 -->
+            <div class="evaluacion">
+                <h3>Evaluación 1</h3>
+                <p><strong>Descripción:</strong> Evaluación de la calidad del servicio proporcionado.</p>
+                <p><strong>Puntaje:</strong> 8/10</p>
+                <button class="confirm-button" onclick="confirmarRecibido(1)">Confirmar Recibido</button>
+                <button class="responder-button" onclick="toggleRespuestaForm(1)">Responder Evaluación</button>
+                <div id="respuestaForm1" class="respuesta-form hidden">
+                    <div class="input-field">
+                        <label for="respuesta1">Respuesta del Proveedor:</label>
+                        <textarea id="respuesta1" placeholder="Escriba su respuesta..."></textarea>
+                    </div>
+                    <button class="submit-button" onclick="enviarRespuesta(1)">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <!-- Evaluación 2 -->
+            <div class="evaluacion">
+                <h3>Evaluación 2</h3>
+                <p><strong>Descripción:</strong> Evaluación del cumplimiento en los tiempos de entrega.</p>
+                <p><strong>Puntaje:</strong> 9/10</p>
+                <button class="confirm-button" onclick="confirmarRecibido(2)">Confirmar Recibido</button>
+                <button class="responder-button" onclick="toggleRespuestaForm(2)">Responder Evaluación</button>
+                <div id="respuestaForm2" class="respuesta-form hidden">
+                    <div class="input-field">
+                        <label for="respuesta2">Respuesta del Proveedor:</label>
+                        <textarea id="respuesta2" placeholder="Escriba su respuesta..."></textarea>
+                    </div>
+                    <button class="submit-button" onclick="enviarRespuesta(2)">Enviar Respuesta</button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+           </div>
+
+
+    <script>
+        // Función para cambiar entre pestañas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Función para responder evaluación
+        function toggleRespuestaForm(id) {
+            const respuestaForm = document.getElementById('respuestaForm' + id);
+            respuestaForm.classList.toggle('hidden');
+        }
+
+        function enviarRespuesta(id) {
+            const respuesta = document.getElementById('respuesta' + id).value;
+            if (respuesta.trim() !== "") {
+                alert('Respuesta enviada: ' + respuesta);
+            } else {
+                alert('Por favor, escribe una respuesta antes de enviar.');
+            }
+        }
+
+        // Función para confirmar recepción de evaluación
+        function confirmarRecibido(id) {
+            alert('Evaluación ' + id + ' confirmada como recibida.');
+        }
+    </script>
+
+</body>
+
+</html>

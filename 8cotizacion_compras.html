@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cotizaciones y Órdenes de Compra</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        /* Contenedor principal */
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        /* Estilos de cotización y orden de compra */
+        .cotizacion, .orden-compra {
+            background-color: #e0dbdb;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        /* Encabezado con el título principal */
+        .header {
+            background-color: #06acf9;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        /* Estilos de los campos de entrada */
+        .input-field {
+            margin-bottom: 20px;
+        }
+        .input-field input, .input-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        /* Botones de acción (submit y otros) */
+        .submit-button, .action-button {
+            background-color: #ff9800;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        /* Clase para ocultar elementos */
+        .hidden {
+            display: none;
+        }
+        /* Estilos para el mensaje de verificación de recepción */
+        .check-received {
+            font-size: 20px;
+            color: green;
+        }
+        /* Estilos para la fecha de envío */
+        .fecha-envio {
+            font-size: 12px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+    </style>
+
+    <style>
+        /* Estilos para la navegación del menú */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        /* Menú de navegación con enlaces a otras páginas */
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        .nav-menu a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Encabezado con el logo -->
+    <div class="header-logo">
+        <img src="logo.png" width="200">
+    </div>
+    <!-- Contenedor para los botones de navegación -->
+   <div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="6gestion_solicitudes.html" class="nav-button">Gestion Solicitudes</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <!-- Título principal -->
+    <div class="header">
+        <h1>Gestión de Cotizaciones y Órdenes de Compra</h1>
+    </div>
+    <div class="container">
+        
+        <!-- Formulario para crear una nueva cotización -->
+        <form id="cotizacionForm">
+            <h2>Crear Cotización</h2>
+            <div class="input-field">
+                <label for="descripcion-cotizacion">Descripción de la Cotización:</label>
+                <!-- Campo de texto para la descripción de la cotización -->
+                <textarea id="descripcion-cotizacion" rows="4" placeholder="Ingrese la descripción"></textarea>
+            </div>
+            <!-- Botón para agregar la cotización -->
+            <button type="submit" class="submit-button">Agregar Cotización</button>
+        </form>
+        
+        <!-- Contenedor donde se listarán las cotizaciones creadas -->
+        <div id="cotizacionesList">
+            <!-- Lista de cotizaciones -->
+        </div>
+
+        <!-- Formulario para crear una nueva orden de compra -->
+        <form id="ordenCompraForm">
+            <h2>Crear Orden de Compra</h2>
+            <div class="input-field">
+                <label for="numero-orden">Número de Orden de Compra:</label>
+                <!-- Campo de texto para el número de la orden de compra -->
+                <input type="text" id="numero-orden" placeholder="Ingrese el número de orden">
+            </div>
+            <div class="input-field">
+                <label for="info-orden">Información de la Solicitud:</label>
+                <!-- Campo de texto para la información de la orden de compra -->
+                <textarea id="info-orden" rows="4" placeholder="Ingrese la información de la solicitud"></textarea>
+            </div>
+            <!-- Botón para crear la orden de compra -->
+            <button type="submit" class="submit-button">Crear Orden de Compra</button>
+        </form>
+        
+        <!-- Contenedor donde se listarán las órdenes de compra creadas -->
+        <div id="ordenesCompraList">
+            <!-- Lista de órdenes de compra -->
+        </div>
+    </div>
+
+    <script>
+        // Evento que maneja la creación de una nueva cotización
+        document.querySelector('#cotizacionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+            const descripcion = document.querySelector('#descripcion-cotizacion').value; // Obtener la descripción
+            agregarCotizacion(descripcion); // Llamar a la función para agregar la cotización
+            document.querySelector('#descripcion-cotizacion').value = ''; // Limpiar el campo de texto
+        });
+
+        // Función que agrega una cotización al listado
+        function agregarCotizacion(descripcion) {
+            const cotizacionesList = document.querySelector('#cotizacionesList');
+            const cotizacionDiv = document.createElement('div');
+            const fecha = new Date().toLocaleDateString(); // Obtener la fecha actual
+            cotizacionDiv.className = 'cotizacion'; // Asignar clase CSS al nuevo div
+            cotizacionDiv.innerHTML = `
+                <h3>Nueva Cotización</h3>
+                <p>${descripcion}</p>
+                <button class="enviar-button">Enviar</button>
+                <button class="verificar-button">Verificar</button>
+                <p class="hidden check-received">Proveedor ha recibido la cotización</p>
+                <p class="fecha-envio hidden">Fecha de envío: ${fecha}</p>
+            `;
+            cotizacionesList.appendChild(cotizacionDiv); // Agregar la cotización a la lista
+
+            // Agregar evento para el botón de enviar la cotización
+            cotizacionDiv.querySelector('.enviar-button').addEventListener('click', () => {
+                alert('Cotización enviada'); // Mostrar alerta al enviar
+                cotizacionDiv.querySelector('.check-received').classList.remove('hidden'); // Mostrar el mensaje de recepción
+                cotizacionDiv.querySelector('.fecha-envio').classList.remove('hidden'); // Mostrar la fecha de envío
+            });
+
+            // Agregar evento para el botón de verificar la cotización
+            cotizacionDiv.querySelector('.verificar-button').addEventListener('click', () => {
+                alert('Cotización verificada'); // Mostrar alerta al verificar
+            });
+        }
+
+        // Evento que maneja la creación de una nueva orden de compra
+        document.querySelector('#ordenCompraForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+            const numeroOrden = document.querySelector('#numero-orden').value; // Obtener el número de orden
+            const infoOrden = document.querySelector('#info-orden').value; // Obtener la información de la solicitud
+            crearOrdenCompra(numeroOrden, infoOrden); // Llamar a la función para crear la orden de compra
+            document.querySelector('#numero-orden').value = ''; // Limpiar el campo de número de orden
+            document.querySelector('#info-orden').value = ''; // Limpiar el campo de información
+        });
+
+        // Función que crea una orden de compra en el listado
+        function crearOrdenCompra(numeroOrden, infoOrden) {
+            const ordenesCompraList = document.querySelector('#ordenesCompraList');
+            const ordenCompraDiv = document.createElement('div');
+            const fecha = new Date().toLocaleDateString(); // Obtener la fecha actual
+            ordenCompraDiv.className = 'orden-compra'; // Asignar clase CSS al nuevo div
+            ordenCompraDiv.innerHTML = `
+                <h3>Orden de Compra #${numeroOrden}</h3>
+                <p>${infoOrden}</p>
+                <button class="enviar-orden-button">Enviar Orden</button>
+                <button class="verificar-orden-button">Verificar Orden</button>
+                <p class="hidden check-received">Proveedor ha recibido la orden de compra</p>
+                <p class="fecha-envio hidden">Fecha de envío: ${fecha}</p>
+            `;
+            ordenesCompraList.appendChild(ordenCompraDiv); // Agregar la orden de compra a la lista
+
+            // Agregar evento para el botón de enviar la orden de compra
+            ordenCompraDiv.querySelector('.enviar-orden-button').addEventListener('click', () => {
+                alert('Orden de compra enviada'); // Mostrar alerta al enviar
+                ordenCompraDiv.querySelector('.check-received').classList.remove('hidden'); // Mostrar el mensaje de recepción
+                ordenCompraDiv.querySelector('.fecha-envio').classList.remove('hidden'); // Mostrar la fecha de envío
+            });
+
+            // Agregar evento para el botón de verificar la orden de compra
+            ordenCompraDiv.querySelector('.verificar-orden-button').addEventListener('click', () => {
+                alert('Orden de compra verificada'); // Mostrar alerta al verificar
+            });
+        }
+    </script>
+
+</body>
+</html>

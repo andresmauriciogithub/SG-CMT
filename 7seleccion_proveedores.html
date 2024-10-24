@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccion de Proveedores</title>
+    <style>
+         /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        /* Estilos para la cabecera */
+        .header {
+            background-color: #06acf9;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+         /* Contenedor principal que define el ancho máximo de la página */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+         /* Estilos generales de las tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        /* Estilos para las celdas de la tabla */
+        th, td {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Estilos para los botones de acción */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        /* Botón para agregar proveedores */
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+        /* Botón para editar proveedores */
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+        }
+        /* Botón para eliminar proveedores */
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+         /* Botón para evaluar proveedores */
+        .btn-evaluate {
+            background-color: #17a2b8;
+            color: white;
+        }
+        /* Botón para ver proveedores */
+        .btn-view {
+            background-color: #ffc107;
+            color: white;
+        }
+        /* Botón para enviar correos */
+        .btn-email {
+            background-color: #007bff;
+            color: white;
+        }
+        /* Botón para cerrar el modal */
+        .btn-modal-close {
+            background-color: #6c757d;
+            color: white;
+            float: right;
+            margin-top: 10px;
+        }
+         /* Estilos del modal (ventana emergente) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+         /* Contenido del modal */
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+            position: relative;
+        }
+         /* Cabecera del modal */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Estilos para la tabla de criterios dentro del modal */
+        .criteria-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .criteria-table th, .criteria-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .criteria-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+<style>
+    /* Estilos generales para el cuerpo */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+   /* Estilos para el contenedor */
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+   /* Estilos para el título */
+    h1 {
+        text-align: center;
+    }
+   /* Menú de navegación en la parte superior */
+    .nav-menu {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+   /* Estilos para los enlaces del menú */
+    .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: #fa813a;
+        color: white;
+        border-radius: 5px;
+    }
+   /* Efecto hover para los enlaces del menú */
+    .nav-menu a:hover {
+        background-color: #0056b3;
+    }
+    /* Contenedor para los botones de navegación */
+    .button-container {
+            position: absolute;
+            top: 20px; /* Espaciado desde la parte superior */
+            right: 20px; /* Espaciado desde la derecha */
+        }
+    /* Estilos para los botones de navegación */
+        .nav-button {
+            background-color: #ffffff; /* Fondo blanco */
+            color: #06acf9; /* Color de texto azul */
+            border: 1px solid #06acf9; /* Borde azul */
+            border-radius: 4px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            text-decoration: none; /* Sin subrayado */
+            margin-left: 5px; /* Espacio entre botones */
+            display: inline-block; /* Para que se alineen horizontalmente */
+        }
+</style>
+
+</head>
+<div class="header-logo">
+    <img src="logo.png" width="200">
+</div>
+<body>
+
+    <!-- Contenedor para los botones de navegación -->
+   <div class="button-container">
+    <a href="index.html" class="nav-button">Inicio</a>
+    <a href="6gestion_solicitudes.html" class="nav-button">Gestion Solicitudes</a>
+    <a href="12soporte_ayuda.html" class="nav-button">Soporte y Ayuda</a>
+</div>
+    <!-- Cabecera principal de la página -->
+    <div class="header">
+        <h1>Seleccion de Proveedores</h1>
+    </div>
+    <br>
+    
+     <!-- Contenedor principal para la tabla de proveedores -->
+    <div class="container">
+        <h3>Proveedores Seleccionados</h3>
+        <table id="proveedoresTable">
+            <thead>
+                <tr>
+                    <th>Proveedor</th>
+                    <th>Producto/Servicio</th>
+                    <th>NIT</th>
+                    <th>Correo Electrónico</th>
+                    <th>Teléfonos</th>
+                    <th>Persona de Contacto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button class="btn btn-add" onclick="agregarProveedor()">Agregar Proveedor</button>
+
+        <h3>Consolidado Seleccion de Proveedores</h3>
+        <table id="consolidadoTable">
+            <thead>
+                <tr>
+                    <th>Proveedor</th>
+                    <th>Producto o Servicio</th>
+                    <th>Responsable</th>
+                    <th>Fecha Selección</th>
+                    <th>Especificaciones Técnicas (35%)</th>
+                    <th>Tiempo de Entrega (5%)</th>
+                    <th>Cumplimiento SG-SST (25%)</th>
+                    <th>Costo (30%)</th>
+                    <th>Condiciones de Pago (5%)</th>
+                    <th>Promedio</th>
+                    <th>Porcentaje</th>
+                    <th>Concepto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!-- Modal para agregar o editar proveedor -->
+        <div id="modalProveedor" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalProveedorTitle">Agregar Proveedor</h3>
+                    <button class="btn btn-modal-close" onclick="cerrarModalProveedor()">Cerrar</button>
+                </div>
+                <form id="formProveedor">
+                    <label for="nombreProveedor">Nombre:</label>
+                    <input type="text" id="nombreProveedor" required><br>
+
+                    <label for="productoServicio">Producto o Servicio:</label>
+                    <input type="text" id="productoServicio" required><br>
+
+                    <label for="nitProveedor">NIT:</label>
+                    <input type="text" id="nitProveedor" required><br>
+
+                    <label for="correoProveedor">Correo Electrónico:</label>
+                    <input type="email" id="correoProveedor" required><br>
+
+                    <label for="telefonosProveedor">Teléfonos:</label>
+                    <input type="text" id="telefonosProveedor" required><br>
+
+                    <label for="contactoProveedor">Persona de Contacto:</label>
+                    <input type="text" id="contactoProveedor" required><br>
+
+                    <button type="button" class="btn btn-add" onclick="guardarProveedor()">Guardar Proveedor</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para evaluar proveedor -->
+        <div id="modalEvaluacion" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Evaluación de Proveedor</h3>
+                    <button class="btn btn-modal-close" onclick="cerrarModalEvaluacion()">Cerrar</button>
+                </div>
+                <form id="formEvaluacion">
+                    <p>Califique de 0 a 3 teniendo en cuenta los criterios de selección según la tabla de criterios a continuación:</p>
+                    
+                   <!-- Tabla para la evaluación del proveedor -->
+                    <table class="criteria-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Descripción</th>
+                                <th>Puntaje Máximo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Especificaciones Técnicas</td>
+                                <td>Calidad y cumplimiento con las especificaciones técnicas requeridas.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Tiempo de Entrega</td>
+                                <td>Capacidad de cumplir con los plazos de entrega establecidos.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Cumplimiento SG-SST</td>
+                                <td>Adherencia a las normas de seguridad y salud en el trabajo.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Costo</td>
+                                <td>Precio del producto o servicio ofrecido.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Condiciones de Pago</td>
+                                <td>Facilidades y condiciones para el pago.</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <label for="criterioTecnico">Especificaciones Técnicas (35%)</label>
+                    <input type="number" id="criterioTecnico" min="0" max="3" required><br>
+
+                    <label for="tiempoEntrega">Tiempo de Entrega (5%)</label>
+                    <input type="number" id="tiempoEntrega" min="0" max="3" required><br>
+
+                    <label for="sgSst">Cumplimiento SG-SST (25%)</label>
+                    <input type="number" id="sgSst" min="0" max="3" required><br>
+
+                    <label for="costo">Costo (30%)</label>
+                    <input type="number" id="costo" min="0" max="3" required><br>
+
+                    <label for="condicionesPago">Condiciones de Pago (5%)</label>
+                    <input type="number" id="condicionesPago" min="0" max="3" required><br>
+
+                    <button type="button" class="btn btn-add" onclick="guardarEvaluacion()">Guardar Evaluación</button>
+                </form>
+            </div>
+        </div>
+    <script>
+        let proveedores = [];
+        let evaluaciones = [];
+        let proveedorSeleccionado = null;
+        let modoEdicion = false;
+        let proveedorEdicionIndex = null;
+
+        // Función para agregar un nuevo proveedor o editar uno existente
+        function agregarProveedor() {
+            modoEdicion = false;
+            proveedorEdicionIndex = null;
+            document.getElementById('modalProveedorTitle').innerText = 'Agregar Proveedor';
+            document.getElementById('formProveedor').reset();
+            document.getElementById('modalProveedor').style.display = 'flex';
+        }
+        // Función para editar proveedor 
+        function editarProveedor(index) {
+            modoEdicion = true;
+            proveedorEdicionIndex = index;
+            const proveedor = proveedores[index];
+            document.getElementById('modalProveedorTitle').innerText = 'Editar Proveedor';
+            document.getElementById('nombreProveedor').value = proveedor.nombre;
+            document.getElementById('productoServicio').value = proveedor.productoServicio;
+            document.getElementById('nitProveedor').value = proveedor.nit;
+            document.getElementById('correoProveedor').value = proveedor.correo;
+            document.getElementById('telefonosProveedor').value = proveedor.telefonos;
+            document.getElementById('contactoProveedor').value = proveedor.contacto;
+            document.getElementById('modalProveedor').style.display = 'flex';
+        }
+        // Función para eliminar proveedor
+        function eliminarProveedor(index) {
+            proveedores.splice(index, 1);
+            cargarProveedores();
+        }
+        // Función para guardar proveedor
+        function guardarProveedor() {
+            const nombre = document.getElementById('nombreProveedor').value;
+            const productoServicio = document.getElementById('productoServicio').value;
+            const nit = document.getElementById('nitProveedor').value;
+            const correo = document.getElementById('correoProveedor').value;
+            const telefonos = document.getElementById('telefonosProveedor').value;
+            const contacto = document.getElementById('contactoProveedor').value;
+
+            if (modoEdicion) {
+                proveedores[proveedorEdicionIndex] = {
+                    nombre,
+                    productoServicio,
+                    nit,
+                    correo,
+                    telefonos,
+                    contacto
+                };
+            } else {
+                proveedores.push({
+                    nombre,
+                    productoServicio,
+                    nit,
+                    correo,
+                    telefonos,
+                    contacto
+                });
+            }
+            cerrarModalProveedor();
+            cargarProveedores();
+        }
+
+        function cargarProveedores() {
+            const tbody = document.querySelector("#proveedoresTable tbody");
+            tbody.innerHTML = "";
+            proveedores.forEach((proveedor, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${proveedor.nombre}</td>
+                    <td>${proveedor.productoServicio}</td>
+                    <td>${proveedor.nit}</td>
+                    <td>${proveedor.correo}</td>
+                    <td>${proveedor.telefonos}</td>
+                    <td>${proveedor.contacto}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editarProveedor(${index})">Editar</button>
+                        <button class="btn btn-delete" onclick="eliminarProveedor(${index})">Eliminar</button>
+                        <button class="btn btn-evaluate" onclick="abrirModalEvaluacion(${index})">Evaluar</button>
+                        <button class="btn btn-email" onclick="prepararCorreo(${index})">Enviar Correo</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Función para abrir el modal de evaluación
+        function abrirModalEvaluacion(index) {
+            proveedorSeleccionado = index;
+            document.getElementById('modalEvaluacion').style.display = 'flex';
+        }
+
+        // Función para guardar la evaluación
+        function guardarEvaluacion() {
+            if (proveedorSeleccionado === null) return;
+
+            const criterioTecnico = parseFloat(document.getElementById('criterioTecnico').value);
+            const tiempoEntrega = parseFloat(document.getElementById('tiempoEntrega').value);
+            const sgSst = parseFloat(document.getElementById('sgSst').value);
+            const costo = parseFloat(document.getElementById('costo').value);
+            const condicionesPago = parseFloat(document.getElementById('condicionesPago').value);
+
+            const promedio = ((criterioTecnico * 0.35) + (tiempoEntrega * 0.05) + (sgSst * 0.25) + (costo * 0.3) + (condicionesPago * 0.05)).toFixed(2);
+            const porcentaje = (promedio * 100).toFixed(2);
+
+            evaluaciones.push({
+                proveedor: proveedores[proveedorSeleccionado].nombre,
+                productoServicio: proveedores[proveedorSeleccionado].productoServicio,
+                responsable: 'Responsable A',
+                fechaSeleccion: new Date().toISOString().split('T')[0],
+                criterioTecnico,
+                tiempoEntrega,
+                sgSst,
+                costo,
+                condicionesPago,
+                promedio,
+                porcentaje,
+                concepto: porcentaje >= 70 ? 'Aprobado' : 'Rechazado'
+            });
+
+            cerrarModalEvaluacion();
+            cargarConsolidado();
+        }
+
+        // Cargar evaluaciones consolidadas
+        function cargarConsolidado() {
+            const tbody = document.querySelector("#consolidadoTable tbody");
+            tbody.innerHTML = "";
+            evaluaciones.forEach((evaluacion, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${evaluacion.proveedor}</td>
+                    <td>${evaluacion.productoServicio}</td>
+                    <td>${evaluacion.responsable}</td>
+                    <td>${evaluacion.fechaSeleccion}</td>
+                    <td>${evaluacion.criterioTecnico}</td>
+                    <td>${evaluacion.tiempoEntrega}</td>
+                    <td>${evaluacion.sgSst}</td>
+                    <td>${evaluacion.costo}</td>
+                    <td>${evaluacion.condicionesPago}</td>
+                    <td>${evaluacion.promedio}</td>
+                    <td>${evaluacion.porcentaje}%</td>
+                    <td>${evaluacion.concepto}</td>
+                    <td>
+                        <button class="btn btn-view" onclick="verEvaluacion(${index})">Ver Detalles</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Ver detalles de la evaluación
+        function verEvaluacion(index) {
+            const evaluacion = evaluaciones[index];
+            const detalle = `
+                <h4>Detalles de Evaluación</h4>
+                <p><strong>Proveedor:</strong> ${evaluacion.proveedor}</p>
+                <p><strong>Producto o Servicio:</strong> ${evaluacion.productoServicio}</p>
+                <p><strong>Responsable:</strong> ${evaluacion.responsable}</p>
+                <p><strong>Fecha Selección:</strong> ${evaluacion.fechaSeleccion}</p>
+                <p><strong>Especificaciones Técnicas:</strong> ${evaluacion.criterioTecnico}</p>
+                <p><strong>Tiempo de Entrega:</strong> ${evaluacion.tiempoEntrega}</p>
+                <p><strong>Cumplimiento SG-SST:</strong> ${evaluacion.sgSst}</p>
+                <p><strong>Costo:</strong> ${evaluacion.costo}</p>
+                <p><strong>Condiciones de Pago:</strong> ${evaluacion.condicionesPago}</p>
+                <p><strong>Promedio:</strong> ${evaluacion.promedio}</p>
+                <p><strong>Porcentaje:</strong> ${evaluacion.porcentaje}%</p>
+                <p><strong>Concepto:</strong> ${evaluacion.concepto}</p>
+            `;
+            document.getElementById('detalleEvaluacion').innerHTML = detalle;
+            document.getElementById('modalVerEvaluacion').style.display = 'flex';
+        }
+
+        // Preparar modal para enviar correo
+        function prepararCorreo(index) {
+            const proveedor = proveedores[index];
+            document.getElementById('correoProveedorDetalle').innerText = `Correo del Proveedor: ${proveedor.correo}`;
+            document.getElementById('modalEnviarCorreo').style.display = 'flex';
+        }
+
+        // Enviar correo al proveedor (simulado)
+        function enviarCorreo() {
+            alert("Correo enviado al proveedor.");
+            cerrarModalEnviarCorreo();
+        }
+
+        // Cerrar el modal de proveedor
+        function cerrarModalProveedor() {
+            document.getElementById('modalProveedor').style.display = 'none';
+        }
+
+        // Cerrar el modal de evaluación
+        function cerrarModalEvaluacion() {
+            document.getElementById('modalEvaluacion').style.display = 'none';
+        }
+
+        // Cerrar el modal de ver evaluación
+        function cerrarModalVerEvaluacion() {
+            document.getElementById('modalVerEvaluacion').style.display = 'none';
+        }
+
+        // Cerrar el modal de enviar correo
+        function cerrarModalEnviarCorreo() {
+            document.getElementById('modalEnviarCorreo').style.display = 'none';
+        }
+
+        // Cargar datos de prueba
+        window.onload = function() {
+            cargarProveedores();
+        }
+    </script>
+    <br>
+
+
+
+</body>
+</html>
